@@ -1,0 +1,21 @@
+with open('input.txt') as f:
+	count = int(f.readline())
+	arr = map(int, f.read().split())
+
+text = []
+
+for i in range(1, count):
+   j = i
+   while j>0 and arr[j-1]>arr[j]:
+      c = arr[j]
+      arr[j] = arr[j-1]
+      arr[j-1] = c
+      text.append([j, j+1])
+      j -= 1
+
+
+with open('output.txt', 'w') as f:
+	for i in range(len(text)):
+		f.write('Swap elements at indices ' + str(text[i][0]) + ' and ' + str(text[i][1]) + '.\n')
+	f.write('No more swaps needed.\n')
+	f.write(' '.join(map(str, arr)))
