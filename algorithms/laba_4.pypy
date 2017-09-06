@@ -1,16 +1,10 @@
 with open("input.txt") as f:
 	count = int(f.readline())
-	monies = list(map(lambda (i, x): [float(x), i+1], enumerate(f.readline().split())))
+	monies = list(map(lambda e : [float(e[1]), e[0]+1 ], list(enumerate(f.readline().split()))))
 
-for i in range(1, count):
-	j = i
-	while j > 0 and monies[j] < monies[j-1]:
-		c = monies[j]
-		monies[j] = monies[j-1]
-		monies[j-1] = c
-		j -= 1
+monies.sort(key=lambda x: x[0])
 
 res = [monies[0][1], monies[int(count/2.)][1], monies[-1][1]]
-	
+
 with open("output.txt", "w") as f:
 	f.write(' '.join(map(str, res)))
