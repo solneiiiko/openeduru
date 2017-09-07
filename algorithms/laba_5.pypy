@@ -1,6 +1,6 @@
 with open('input.txt') as f:
 	count = int(f.readline())
-	arr = map(int, f.read().split())
+	arr = list(map(int, f.readline().split()))
 
 text = []
 
