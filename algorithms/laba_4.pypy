@@ -1,6 +1,6 @@
 with open("input.txt") as f:
 	count = int(f.readline())
-	monies = list(map(lambda e : [float(e[1]), e[0]+1 ], list(enumerate(f.readline().split()))))
+	monies = [ [float(x), i+1] for i,x in enumerate(f.readline().split()) ]
 
 monies.sort(key=lambda x: x[0])
 
