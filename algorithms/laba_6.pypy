@@ -1,0 +1,53 @@
+text = []
+
+"""
+@beginregion
+небольшое вступление
+"""
+def merge (a, b):
+	c = []
+
+	i = j = 0
+	while i < len(a) and j < len(b):
+		if a[i] < b[j]:
+			c.append(a[i])
+			i += 1
+		else:
+			c.append(b[j])
+			j += 1
+
+	while i < len(a):
+		c.append(a[i])
+		i += 1
+
+	while j < len(b):
+		c.append(b[j])
+		j += 1
+
+	return c
+
+# Сортировка массива
+def sort (a, li, ri):
+	if li == ri:
+		return [a[li]]
+	m = int((ri - li) / 2)
+	c = merge(sort(a, li, li + m), sort(a, li + m + 1, ri))
+
+	text.append(' '.join(map(str, [li+1, ri+1, c[0], c[-1]])))
+
+	return c
+
+"""
+@endregion
+"""
+
+
+with open('input.txt') as f:
+	count = f.readline()
+	arr = [ int(i) for i in f.readline().split()]
+
+arr = sort(arr, 0, len(arr) - 1)
+
+with open('output.txt', 'w') as f:
+	f.write('\n'.join(text) + '\n')
+	f.write(' '.join(map(str, arr)))
