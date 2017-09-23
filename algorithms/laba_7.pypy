@@ -1,0 +1,43 @@
+def merge (a, b):
+	c = []
+
+	i = j = 0
+	count = 0
+
+	while i < len(a) and j < len(b):
+		if a[i][0] <= b[j][0]:
+			a[i][1] += count
+			c.append(a[i])
+			i += 1
+		else:
+			count +=1
+			c.append(b[j])
+			j += 1
+
+	while i < len(a):
+		a[i][1] += count	
+		c.append(a[i])
+		i += 1
+
+	while j < len(b):
+		c.append(b[j])
+		j += 1
+
+	return c
+
+def sort (a, li, ri):
+	if li == ri:
+		return [a[li]]
+	m = int((ri - li) / 2)
+	c = merge(sort(a, li, li + m), sort(a, li + m + 1, ri))
+
+	return c
+
+with open('input.txt') as f:
+	count = int(f.readline())
+	arr = [ [int(i), 0] for e, i in enumerate(f.readline().split())]
+
+arr = sort(arr, 0, len(arr) - 1)
+
+with open('output.txt', 'w') as f:
+	f.write(str(sum(x[1] for x in arr)))
